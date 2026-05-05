@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { checkRateLimit, recordFailedAttempt, clearRateLimit } from '../lib/rateLimit';
 import { Lock, Mail, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AnimatedBackground } from './AnimatedBackground';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -42,6 +43,7 @@ export const Login = () => {
 
   return (
     <div className="login-container">
+      <AnimatedBackground />
       <motion.div 
         className="login-card"
         initial={{ opacity: 0, y: 20 }}
