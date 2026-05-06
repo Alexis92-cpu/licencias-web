@@ -54,12 +54,12 @@ export const Login = () => {
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
             <motion.img 
               src="/logo.png" 
-              alt="Candado Gótico" 
+              alt="Candado Seguridad" 
               initial={{ scale: 1.5, opacity: 0, y: -20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 10, delay: 0.2 }}
               whileHover={{ scale: 1.1, filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.8))' }}
-              style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.3)', boxShadow: '0 0 20px rgba(0,0,0,0.8)', cursor: 'pointer' }} 
+              style={{ width: '130px', height: '130px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.3)', boxShadow: '0 0 20px rgba(0,0,0,0.8)', cursor: 'pointer' }} 
             />
           </div>
           <h1 className="login-title" style={{ fontWeight: 'bold' }}>GESTION DE LICENCIAS</h1>
