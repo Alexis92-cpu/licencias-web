@@ -75,7 +75,7 @@ export const Login = () => {
                 required
                 placeholder="admin@empresa.com"
               />
-              <Mail size={18} color="var(--text-muted)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+              <Mail size={18} color="rgba(255,255,255,0.6)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
           </div>
 
@@ -92,7 +92,7 @@ export const Login = () => {
                 required
                 placeholder="••••••••"
               />
-              <Lock size={18} color="var(--text-muted)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+              <Lock size={18} color="rgba(255,255,255,0.6)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
           </div>
 

@@ -7,37 +7,50 @@ export const AnimatedBackground = () => {
 
   useEffect(() => {
     const newElements = [];
-    // Generar iconos de seguridad flotantes (candados, escudos, llaves)
-    for (let i = 0; i < 20; i++) {
+    
+    // Función auxiliar para obtener un valor aleatorio entre min y max
+    const random = (min: number, max: number) => Math.random() * (max - min) + min;
+
+    // Generar iconos
+    for (let i = 0; i < 25; i++) {
       const types = ['shield', 'lock', 'key', 'file'];
-      const type = types[Math.floor(Math.random() * types.length)];
       newElements.push({
         id: `icon-${i}`,
-        type,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 30 + 20, // entre 20 y 50px
-        duration: Math.random() * 25 + 20,
-        delay: Math.random() * 10
+        type: types[Math.floor(Math.random() * types.length)],
+        startX: random(0, 100),
+        startY: random(0, 100),
+        targetX1: random(-20, 120),
+        targetY1: random(-20, 120),
+        targetX2: random(-20, 120),
+        targetY2: random(-20, 120),
+        startScale: random(0.3, 0.8),
+        targetScale: random(1.5, 2.5),
+        size: random(20, 40),
+        duration: random(25, 45)
       });
     }
 
-    // Generar cadenas de códigos binarios y hexadecimales cayendo/subiendo
+    // Generar códigos
     for (let i = 0; i < 30; i++) {
       const isBinary = Math.random() > 0.5;
       const text = isBinary 
         ? Array.from({length: 8}, () => Math.random() > 0.5 ? '1' : '0').join('')
-        : Array.from({length: 6}, () => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
+        : '0x' + Array.from({length: 6}, () => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
         
       newElements.push({
         id: `code-${i}`,
         type: 'code',
-        text: isBinary ? text : `0x${text}`,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 14 + 10,
-        duration: Math.random() * 20 + 15,
-        delay: Math.random() * 10
+        text,
+        startX: random(0, 100),
+        startY: random(0, 100),
+        targetX1: random(-20, 120),
+        targetY1: random(-20, 120),
+        targetX2: random(-20, 120),
+        targetY2: random(-20, 120),
+        startScale: random(0.5, 1),
+        targetScale: random(1.5, 2.5),
+        size: random(12, 24),
+        duration: random(20, 40)
       });
     }
     
@@ -51,10 +64,20 @@ export const AnimatedBackground = () => {
           return (
             <motion.div
               key={el.id}
-              initial={{ y: '110vh', x: `${el.x}vw`, opacity: 0 }}
-              animate={{ y: '-10vh', opacity: [0, 0.4, 0.4, 0] }}
-              transition={{ duration: el.duration, repeat: Infinity, delay: el.delay, ease: "linear" }}
-              style={{ position: 'absolute', color: 'rgba(37, 99, 235, 0.2)', fontFamily: 'monospace', fontSize: el.size, fontWeight: 'bold' }}
+              initial={{ 
+                x: `${el.startX}vw`, 
+                y: `${el.startY}vh`, 
+                scale: el.startScale,
+                opacity: 0
+              }}
+              animate={{ 
+                x: [`${el.startX}vw`, `${el.targetX1}vw`, `${el.targetX2}vw`, `${el.startX}vw`],
+                y: [`${el.startY}vh`, `${el.targetY1}vh`, `${el.targetY2}vh`, `${el.startY}vh`],
+                scale: [el.startScale, el.targetScale, el.startScale * 0.5, el.startScale],
+                opacity: [0, 0.4, 0.1, 0]
+              }}
+              transition={{ duration: el.duration, repeat: Infinity, ease: "linear" }}
+              style={{ position: 'absolute', color: 'rgba(255, 255, 255, 0.4)', fontFamily: 'monospace', fontSize: el.size, fontWeight: 'bold', textShadow: '0 0 5px rgba(255,255,255,0.8)' }}
             >
               {el.text}
             </motion.div>
@@ -68,10 +91,22 @@ export const AnimatedBackground = () => {
           return (
             <motion.div
               key={el.id}
-              initial={{ y: '110vh', x: `${el.x}vw`, opacity: 0, rotate: 0 }}
-              animate={{ y: '-20vh', opacity: [0, 0.15, 0.15, 0], rotate: 360 }}
-              transition={{ duration: el.duration, repeat: Infinity, delay: el.delay, ease: "linear" }}
-              style={{ position: 'absolute', color: 'var(--primary)' }}
+              initial={{ 
+                x: `${el.startX}vw`, 
+                y: `${el.startY}vh`, 
+                scale: el.startScale,
+                opacity: 0,
+                rotate: 0 
+              }}
+              animate={{ 
+                x: [`${el.startX}vw`, `${el.targetX1}vw`, `${el.targetX2}vw`, `${el.startX}vw`],
+                y: [`${el.startY}vh`, `${el.targetY1}vh`, `${el.targetY2}vh`, `${el.startY}vh`],
+                scale: [el.startScale, el.targetScale, el.startScale * 0.5, el.startScale],
+                opacity: [0, 0.25, 0.1, 0], 
+                rotate: [0, 180, 360, 0] 
+              }}
+              transition={{ duration: el.duration, repeat: Infinity, ease: "linear" }}
+              style={{ position: 'absolute', color: '#ffffff', filter: 'drop-shadow(0 0 5px rgba(255,255,255,0.8))' }}
             >
               <IconComponent size={el.size} />
             </motion.div>
