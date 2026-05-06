@@ -299,14 +299,14 @@ export const Dashboard = () => {
                 <button onClick={() => setPreviewClient(null)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', color: 'var(--text-muted)' }}>&times;</button>
               </div>
               <div className="modal-body">
-                <div style={{ background: '#f8fafc', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--border)' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--border)' }}>
                   <p style={{ marginBottom: '0.5rem' }}><strong>Pedido:</strong> {previewClient.pedido || 'N/A'}</p>
                   <p style={{ marginBottom: '0.5rem' }}><strong>Teléfono:</strong> {previewClient.telefono || 'N/A'}</p>
                   <p><strong>Email:</strong> {previewClient.email || 'N/A'}</p>
                 </div>
                 <h3 style={{ fontSize: '1rem', marginBottom: '1rem' }}>Licencias Asignadas</h3>
                 {previewClient.licencias.length > 0 ? previewClient.licencias.map(l => (
-                  <div key={l.id} style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '8px', marginBottom: '0.5rem', borderLeft: '4px solid var(--primary)' }}>
+                  <div key={l.id} style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', marginBottom: '0.5rem', borderLeft: '4px solid var(--primary)' }}>
                     <div style={{ fontWeight: 600, color: 'var(--primary)', marginBottom: '0.25rem' }}>{l.tipo}</div>
                     <div style={{ fontFamily: 'monospace', fontSize: '1.1rem', wordBreak: 'break-all' }}>{l.detalle}</div>
                   </div>
@@ -363,7 +363,7 @@ export const Dashboard = () => {
                   <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '1px solid var(--border)' }} />
                   <h3 style={{ fontSize: '1rem', marginBottom: '1rem' }}>Licencias (Datos Cifrados AES-GCM)</h3>
 
-                  <div className="card" style={{ marginBottom: '1rem', background: '#f8fafc' }}>
+                  <div className="card" style={{ marginBottom: '1rem', background: 'rgba(0,0,0,0.2)' }}>
                     <label className="checkbox-group">
                       <input type="checkbox" checked={hasWindows} onChange={e => setHasWindows(e.target.checked)} />
                       <span style={{ fontWeight: 500 }}>Licencia Windows</span>
@@ -380,7 +380,7 @@ export const Dashboard = () => {
                     )}
                   </div>
 
-                  <div className="card" style={{ marginBottom: '0', background: '#f8fafc' }}>
+                  <div className="card" style={{ marginBottom: '0', background: 'rgba(0,0,0,0.2)' }}>
                     <label className="checkbox-group">
                       <input type="checkbox" checked={hasOffice} onChange={e => setHasOffice(e.target.checked)} />
                       <span style={{ fontWeight: 500 }}>Licencia Office</span>

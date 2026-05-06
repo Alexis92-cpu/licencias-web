@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-color: #f8fafc;
-  --surface: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --bg-color: #090a0f;
+  --surface: rgba(15, 23, 42, 0.6);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
   --danger: #ef4444;
   --success: #10b981;
   --warning: #f59e0b;
   --radius: 12px;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -25,10 +25,12 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -62,7 +64,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: transparent;
   padding: 1rem;
   position: relative;
   overflow: hidden;
@@ -71,12 +73,12 @@ button {
 .login-card {
   position: relative;
   z-index: 10;
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 2.5rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), var(--shadow-lg);
   width: 100%;
   max-width: 420px;
@@ -115,23 +117,23 @@ button {
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
   transition: all 0.2s;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-main);
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  border-color: var(--primary);
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
 .btn {
@@ -159,7 +161,7 @@ button {
 }
 
 .btn-primary:disabled {
-  background-color: #93c5fd;
+  background-color: #3b82f688;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -172,7 +174,7 @@ button {
 }
 
 .btn-outline:hover {
-  background-color: #f1f5f9;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .btn-danger {
@@ -202,6 +204,8 @@ button {
 
 .navbar {
   background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 1rem 2rem;
   display: flex;
@@ -237,6 +241,8 @@ button {
 
 .card {
   background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
@@ -263,7 +269,7 @@ th {
   letter-spacing: 0.05em;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border);
-  background-color: #f8fafc;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 td {
@@ -274,7 +280,7 @@ td {
 }
 
 tr:hover td {
-  background-color: #f8fafc;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .badge {
@@ -284,8 +290,9 @@ tr:hover td {
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 9999px;
-  background-color: #e0e7ff;
-  color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 /* Modal styles */
@@ -295,8 +302,8 @@ tr:hover td {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
+  background-color: rgba(9, 10, 15, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -306,7 +313,10 @@ tr:hover td {
 
 .modal-content {
   background: var(--surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 600px;
