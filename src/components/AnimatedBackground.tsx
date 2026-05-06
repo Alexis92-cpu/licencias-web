@@ -8,14 +8,13 @@ interface ElementData {
   text?: string;
   startX: number;
   startY: number;
-  targetX1: number;
-  targetY1: number;
-  targetX2: number;
-  targetY2: number;
+  targetX: number;
+  targetY: number;
   startScale: number;
   targetScale: number;
   size: number;
   duration: number;
+  delay: number;
 }
 
 export const AnimatedBackground = () => {
@@ -24,30 +23,30 @@ export const AnimatedBackground = () => {
   useEffect(() => {
     const newElements: ElementData[] = [];
     
-    // Función auxiliar para obtener un valor aleatorio entre min y max
     const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
     // Generar iconos
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 20; i++) {
       const types = ['shield', 'lock', 'key', 'file'];
       newElements.push({
         id: `icon-${i}`,
         type: types[Math.floor(Math.random() * types.length)],
         startX: random(0, 100),
         startY: random(0, 100),
-        targetX1: random(-20, 120),
-        targetY1: random(-20, 120),
-        targetX2: random(-20, 120),
-        targetY2: random(-20, 120),
-        startScale: random(0.3, 0.8),
-        targetScale: random(1.5, 2.5),
-        size: random(20, 40),
-        duration: random(25, 45)
+        // Movimiento suave y aleatorio hacia otra parte de la pantalla
+        targetX: random(0, 100),
+        targetY: random(0, 100),
+        // Efecto de profundidad (de atrás hacia adelante)
+        startScale: random(0.2, 0.6),
+        targetScale: random(1.2, 2.2),
+        size: random(20, 35),
+        duration: random(15, 35), // Duración más lenta para más fluidez
+        delay: random(0, 5)
       });
     }
 
     // Generar códigos
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       const isBinary = Math.random() > 0.5;
       const text = isBinary 
         ? Array.from({length: 8}, () => Math.random() > 0.5 ? '1' : '0').join('')
@@ -59,14 +58,13 @@ export const AnimatedBackground = () => {
         text,
         startX: random(0, 100),
         startY: random(0, 100),
-        targetX1: random(-20, 120),
-        targetY1: random(-20, 120),
-        targetX2: random(-20, 120),
-        targetY2: random(-20, 120),
-        startScale: random(0.5, 1),
+        targetX: random(0, 100),
+        targetY: random(0, 100),
+        startScale: random(0.3, 0.8),
         targetScale: random(1.5, 2.5),
-        size: random(12, 24),
-        duration: random(20, 40)
+        size: random(12, 22),
+        duration: random(18, 40),
+        delay: random(0, 5)
       });
     }
     
@@ -90,13 +88,19 @@ export const AnimatedBackground = () => {
                 opacity: 0
               }}
               animate={{ 
-                x: [`${el.startX}vw`, `${el.targetX1}vw`, `${el.targetX2}vw`, `${el.startX}vw`],
-                y: [`${el.startY}vh`, `${el.targetY1}vh`, `${el.targetY2}vh`, `${el.startY}vh`],
-                scale: [el.startScale, el.targetScale, el.startScale * 0.5, el.startScale],
-                opacity: [0, 0.4, 0.1, 0]
+                x: [`${el.startX}vw`, `${el.targetX}vw`],
+                y: [`${el.startY}vh`, `${el.targetY}vh`],
+                scale: [el.startScale, el.targetScale],
+                opacity: [0, 0.5, 0]
               }}
-              transition={{ duration: el.duration, repeat: Infinity, ease: "linear" }}
-              style={{ position: 'absolute', color: 'rgba(255, 255, 255, 0.4)', fontFamily: 'monospace', fontSize: el.size, fontWeight: 'bold', textShadow: '0 0 5px rgba(255,255,255,0.8)' }}
+              transition={{ 
+                duration: el.duration, 
+                delay: el.delay,
+                repeat: Infinity, 
+                repeatType: "mirror",
+                ease: "easeInOut" 
+              }}
+              style={{ position: 'absolute', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'monospace', fontSize: el.size, fontWeight: 'bold', textShadow: '0 0 10px rgba(255,255,255,0.4)' }}
             >
               {el.text}
             </motion.div>
@@ -118,14 +122,20 @@ export const AnimatedBackground = () => {
                 rotate: 0 
               }}
               animate={{ 
-                x: [`${el.startX}vw`, `${el.targetX1}vw`, `${el.targetX2}vw`, `${el.startX}vw`],
-                y: [`${el.startY}vh`, `${el.targetY1}vh`, `${el.targetY2}vh`, `${el.startY}vh`],
-                scale: [el.startScale, el.targetScale, el.startScale * 0.5, el.startScale],
-                opacity: [0, 0.25, 0.1, 0], 
-                rotate: [0, 180, 360, 0] 
+                x: [`${el.startX}vw`, `${el.targetX}vw`],
+                y: [`${el.startY}vh`, `${el.targetY}vh`],
+                scale: [el.startScale, el.targetScale],
+                opacity: [0, 0.4, 0], 
+                rotate: [0, 180] 
               }}
-              transition={{ duration: el.duration, repeat: Infinity, ease: "linear" }}
-              style={{ position: 'absolute', color: '#ffffff', filter: 'drop-shadow(0 0 5px rgba(255,255,255,0.8))' }}
+              transition={{ 
+                duration: el.duration, 
+                delay: el.delay,
+                repeat: Infinity, 
+                repeatType: "mirror",
+                ease: "easeInOut" 
+              }}
+              style={{ position: 'absolute', color: '#ffffff', filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6))' }}
             >
               <IconComponent size={el.size} />
             </motion.div>
