@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { supabase } from './lib/supabase';
+import { Session } from '@supabase/supabase-js';
 import { Login } from './components/Login';
 import { Dashboard } from './components/Dashboard';
 
 function App() {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

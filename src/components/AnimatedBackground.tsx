@@ -2,11 +2,27 @@ import { motion } from 'framer-motion';
 import { Lock, Shield, Key, FileDigit } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+interface ElementData {
+  id: string;
+  type: string;
+  text?: string;
+  startX: number;
+  startY: number;
+  targetX1: number;
+  targetY1: number;
+  targetX2: number;
+  targetY2: number;
+  startScale: number;
+  targetScale: number;
+  size: number;
+  duration: number;
+}
+
 export const AnimatedBackground = () => {
-  const [elements, setElements] = useState<any[]>([]);
+  const [elements, setElements] = useState<ElementData[]>([]);
 
   useEffect(() => {
-    const newElements = [];
+    const newElements: ElementData[] = [];
     
     // Función auxiliar para obtener un valor aleatorio entre min y max
     const random = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -54,7 +70,10 @@ export const AnimatedBackground = () => {
       });
     }
     
-    setElements(newElements);
+    const timeout = setTimeout(() => {
+      setElements(newElements);
+    }, 0);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

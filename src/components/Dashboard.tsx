@@ -41,7 +41,7 @@ export const Dashboard = () => {
     fetchClientes();
   }, []);
 
-  const fetchClientes = async () => {
+  async function fetchClientes() {
     setLoading(true);
     // In a real app, this would query Supabase.
     // Assuming tables: clientes (id, pedido, nombre, telefono, email)
@@ -133,8 +133,8 @@ export const Dashboard = () => {
 
       setModalOpen(false);
       fetchClientes();
-    } catch (err: any) {
-      alert('Error al guardar: ' + err.message);
+    } catch (err) {
+      alert('Error al guardar: ' + (err as Error).message);
     }
   };
 
