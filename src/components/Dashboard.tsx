@@ -188,7 +188,7 @@ export const Dashboard = () => {
       <nav className="navbar">
         <div className="navbar-brand">
           <ShieldCheck size={28} />
-          <span>Gestión Segura de Licencias</span>
+          <span>Gestión de Licencias</span>
         </div>
         <button onClick={handleLogout} className="btn btn-outline">
           <LogOut size={18} /> Salir
@@ -196,14 +196,21 @@ export const Dashboard = () => {
       </nav>
 
       <main className="main-content">
-        <div className="page-header">
-          <div>
-            <h1 style={{ fontSize: '1.875rem', marginBottom: '0.5rem' }}>Directorio de Clientes</h1>
-            <p style={{ color: 'var(--text-muted)' }}>Administra las licencias de software con cifrado AES-256-GCM.</p>
+        <div className="page-header" style={{ justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', width: '100%', justifyContent: 'flex-end' }}>
+            <a 
+              href="https://licenciaspcar.net/product-category/office/?gad_campaignid=21001243332" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-outline" 
+              style={{ color: '#f8fafc', borderColor: 'var(--primary)', backgroundColor: 'rgba(59, 130, 246, 0.15)' }}
+            >
+              Solicitar Licencia
+            </a>
+            <button className="btn btn-primary" onClick={() => openModal()}>
+              <Plus size={18} /> Nuevo Cliente
+            </button>
           </div>
-          <button className="btn btn-primary" onClick={() => openModal()}>
-            <Plus size={18} /> Nuevo Cliente
-          </button>
         </div>
 
         <div className="card">
