@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { encryptData, decryptData } from '../lib/encryption';
-import { LogOut, Plus, Search, Edit2, Trash2, Printer, ShieldCheck } from 'lucide-react';
+import { LogOut, Plus, Search, Edit2, Trash2, Printer, ShieldCheck, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Cliente {
@@ -25,6 +25,7 @@ export const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<Cliente | null>(null);
+  const [previewClient, setPreviewClient] = useState<Cliente | null>(null);
 
   // Form State
   const [pedido, setPedido] = useState('');
@@ -260,6 +261,9 @@ export const Dashboard = () => {
                       </td>
                       <td>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                          <button onClick={() => setPreviewClient(c)} className="btn btn-outline" style={{ padding: '0.5rem', color: '#2563eb', borderColor: '#bfdbfe' }} title="Vista Previa">
+                            <Eye size={16} />
+                          </button>
                           <button onClick={() => printCliente(c)} className="btn btn-outline" style={{ padding: '0.5rem' }} title="Imprimir Licencias">
                             <Printer size={16} />
                           </button>
@@ -281,6 +285,47 @@ export const Dashboard = () => {
       </main>
 
       <AnimatePresence>
+        {previewClient && (
+          <div className="modal-overlay" onClick={() => setPreviewClient(null)}>
+            <motion.div 
+              className="modal-content"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="modal-header">
+                <h2 style={{ fontSize: '1.25rem' }}>Vista Previa - {previewClient.nombre}</h2>
+                <button onClick={() => setPreviewClient(null)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', color: 'var(--text-muted)' }}>&times;</button>
+              </div>
+              <div className="modal-body">
+                <div style={{ background: '#f8fafc', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--border)' }}>
+                  <p style={{ marginBottom: '0.5rem' }}><strong>Pedido:</strong> {previewClient.pedido || 'N/A'}</p>
+                  <p style={{ marginBottom: '0.5rem' }}><strong>Teléfono:</strong> {previewClient.telefono || 'N/A'}</p>
+                  <p><strong>Email:</strong> {previewClient.email || 'N/A'}</p>
+                </div>
+                <h3 style={{ fontSize: '1rem', marginBottom: '1rem' }}>Licencias Asignadas</h3>
+                {previewClient.licencias.length > 0 ? previewClient.licencias.map(l => (
+                  <div key={l.id} style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '8px', marginBottom: '0.5rem', borderLeft: '4px solid var(--primary)' }}>
+                    <div style={{ fontWeight: 600, color: 'var(--primary)', marginBottom: '0.25rem' }}>{l.tipo}</div>
+                    <div style={{ fontFamily: 'monospace', fontSize: '1.1rem', wordBreak: 'break-all' }}>{l.detalle}</div>
+                  </div>
+                )) : (
+                  <p style={{ color: 'var(--text-muted)' }}>No hay licencias registradas.</p>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" onClick={() => printCliente(previewClient)}>
+                  <Printer size={16} style={{ marginRight: '0.5rem' }} /> Imprimir
+                </button>
+                <button type="button" className="btn btn-outline" onClick={() => setPreviewClient(null)}>Cerrar</button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
         {modalOpen && (
           <div className="modal-overlay" onClick={() => setModalOpen(false)}>
             <motion.div 
@@ -296,7 +341,7 @@ export const Dashboard = () => {
               </div>
               <form onSubmit={saveCliente}>
                 <div className="modal-body">
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-grid">
                     <div className="form-group">
                       <label className="form-label">Nombre del Cliente *</label>
                       <input type="text" className="form-input" value={nombre} onChange={e => setNombre(e.target.value)} required />
